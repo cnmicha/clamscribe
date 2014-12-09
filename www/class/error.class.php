@@ -23,7 +23,7 @@ class cError
         return $inst;
     }
 
-    public static function throwError($iErrType, $sErrMsg = '')
+    public function throwError($iErrType, $sErrMsg = '')
     {
         //TODO
     }
