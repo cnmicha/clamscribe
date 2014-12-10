@@ -7,6 +7,8 @@
  */
 
 //include classes?
+require_once('class/display.class.php');
+require_once('class/error.class.php');
 
 
 
