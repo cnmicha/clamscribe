@@ -24,7 +24,7 @@
 <header class="header">
 <a href="{$smarty_url}" class="logo">
     <!-- Add the class icon to your logo image or logo icon to add the margining -->
-    AdminLTE
+    ClamScribe
 </a>
 <!-- Header Navbar: style can be found in header.less -->
 <nav class="navbar navbar-static-top" role="navigation">
@@ -314,15 +314,15 @@
                     </a>
                 </li>
                 <li>
-                    <a href="widgets.html">
-                        <i class="fa fa-th"></i> <span>Widgets</span>
+                    <a href="#">
+                        <i class="fa fa-th"></i> <span>coming soon</span>
                         <small class="badge pull-right bg-green">new</small>
                     </a>
                 </li>
                 <li class="treeview">
                     <a href="#">
                         <i class="fa fa-bar-chart-o"></i>
-                        <span>Charts</span>
+                        <span>Traffic Overview</span>
                         <i class="fa fa-angle-left pull-right"></i>
                     </a>
                     <ul class="treeview-menu">
@@ -334,7 +334,7 @@
                 <li class="treeview">
                     <a href="#">
                         <i class="fa fa-laptop"></i>
-                        <span>UI Elements</span>
+                        <span>Registered NICs</span>
                         <i class="fa fa-angle-left pull-right"></i>
                     </a>
                     <ul class="treeview-menu">
@@ -347,7 +347,7 @@
                 </li>
                 <li class="treeview">
                     <a href="#">
-                        <i class="fa fa-edit"></i> <span>Forms</span>
+                        <i class="fa fa-edit"></i> <span>Settings</span>
                         <i class="fa fa-angle-left pull-right"></i>
                     </a>
                     <ul class="treeview-menu">
@@ -360,7 +360,7 @@
                 </li>
                 <li class="treeview">
                     <a href="#">
-                        <i class="fa fa-table"></i> <span>Tables</span>
+                        <i class="fa fa-table"></i> <span>Traffic Data</span>
                         <i class="fa fa-angle-left pull-right"></i>
                     </a>
                     <ul class="treeview-menu">
@@ -447,8 +447,7 @@
 
         <!-- Main content -->
         <section class="content">
-
-
+            {include file=$tpl_file}
         </section>
         <!-- /.content -->
     </aside>

@@ -51,31 +51,30 @@ if (isset($_GET['module'])) {
             $sUrl = (isset($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . ROOT_URL_FROM_DOCROOT . '/index.php';
             $oSmarty->assign('smarty_url', $sUrl);
 
-            $oSmarty->display('include/page.tpl');
-        } //if page content not locked (no err message) display template
+            $oSmarty->display('include/page.tpl'); //if page content not locked (no err message) display template
+        }
 
     } else {
         cError::getInstance()->throwError(cError::ERR_TYPE_TEMPLATE);
     }
 } else {
-    if (file_exists('module/index/action.php') && file_exists('module/index/template.tpl') && file_exists('module/index/config.php')) {
-        require_once('module/index/config.php');
+    if (file_exists('module/dashboard/action.php') && file_exists('module/dashboard/template.tpl') && file_exists('module/dashboard/config.php')) {
+        require_once('module/dashboard/config.php');
         $oSmarty->assign('page_title', $aConfig['title']);
         $oSmarty->assign('page_caption', $aConfig['caption']);
         $oSmarty->assign('user_ip', $_SERVER['REMOTE_ADDR']);
 
-        require_once('module/index/action.php');
+        require_once('module/dashboard/action.php');
 
         if (!cDisplay::getInstance()->isBLocked()) {
-            $oSmarty->assign('tpl_file', '../module/index/template.tpl');
+            $oSmarty->assign('tpl_file', '../module/dashboard/template.tpl');
 
             $sUrl = (isset($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . ROOT_URL_FROM_DOCROOT . '/index.php';
             $oSmarty->assign('smarty_url', $sUrl);
 
-            $oSmarty->display('include/page.tpl');
-        } //if page content not locked (no err message) display template
+            $oSmarty->display('include/page.tpl'); //if page content not locked (no err message) display template
+        }
 
-        if (!cDisplay::getInstance()->isBLocked()) $oSmarty->display('module/index/template.tpl'); //if page content not locked (no err message) display template
     } else {
         cError::getInstance()->throwError(cError::ERR_TYPE_TEMPLATE);
     }
