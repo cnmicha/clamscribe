@@ -8,6 +8,7 @@
  */
 class cDisplay
 {
+    private $bLocked = false;
 
     public static function getInstance()
     {
@@ -18,35 +19,19 @@ class cDisplay
         return $inst;
     }
 
-    public function displayModule($sModuleName)
+    /**
+     * @return boolean
+     */
+    public function isLocked()
     {
-        if (file_exists('../module/' . $sModuleName . '/index.php')) {
-
-            require_once('../include/header.php');
-            require_once('../include/menu.php');
-            require_once('../module/' . $sModuleName . '/index.php');
-            require_once('../include/footer.php');
-
-        } else {
-            cError::getInstance()->throwError(cError::ERR_TYPE_TEMPLATE);
-        }
+        return $this->bLocked;
     }
 
-    public function displayHtml($sHtml)
+    /**
+     * @param boolean $locked
+     */
+    public function setLocked($locked)
     {
-        require_once('../include/header.php');
-        require_once('../include/menu.php');
-        echo($sHtml);
-        require_once('../include/footer.php');
-    }
-
-    public function displayHtmlArray($aHtml)
-    {
-        require_once('../include/header.php');
-        require_once('../include/menu.php');
-        foreach ($aHtml as $sHtml) {
-            echo($sHtml);
-        }
-        require_once('../include/footer.php');
+        $this->bLocked = $locked;
     }
 } 

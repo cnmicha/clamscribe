@@ -5,7 +5,7 @@
  * Date: 08.12.2014
  * Time: 17:29
  */
-
+echo('awe');
 ?>
 
 <h2>awesome.</h2>
