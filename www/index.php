@@ -9,6 +9,7 @@
 //include classes
 require_once('class/display.class.php');
 require_once('class/error.class.php');
+require_once('class/mysql.class.php');
 
 //include config
 require_once('config/config.inc.php');
@@ -29,6 +30,8 @@ if (isset($_GET['debug'])) {
         default:
             $oSmarty->debugging = false;
     }
+} else {
+    $oSmarty->debugging = false;
 }
 
 $oSmarty->caching = true;
