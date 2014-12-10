@@ -22,16 +22,16 @@ class cDisplay
     /**
      * @return boolean
      */
-    public function isLocked()
+    public function isBLocked()
     {
         return $this->bLocked;
     }
 
     /**
-     * @param boolean $locked
+     * @param boolean $bLocked
      */
-    public function setLocked($locked)
+    public function setBLocked($bLocked)
     {
-        $this->bLocked = $locked;
+        $this->bLocked = $bLocked;
     }
 } 

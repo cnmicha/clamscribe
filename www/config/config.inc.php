@@ -6,3 +6,4 @@
  * Time: 17:27
  */
 
+const ROOT_URL_FROM_DOCROOT = ''; //if the url is f.e. https://test.com/somewhat/index.php to access the web interface, this has to be '/somewhat'
