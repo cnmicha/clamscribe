@@ -326,8 +326,7 @@
                         <i class="fa fa-angle-left pull-right"></i>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="{$smarty_url}?module=traffic"><i class="fa fa-angle-double-right"></i> All protocols</a></li>
-                        <li><a href="{$smarty_url}?module=traffic&protocol=tcp"><i class="fa fa-angle-double-right"></i> TCP</a></li>
+                        <li><a href="#"><i class="fa fa-angle-double-right"></i> coming soon</a></li>
                     </ul>
                 </li>
                 <li class="treeview">
@@ -363,8 +362,9 @@
                         <i class="fa fa-angle-left pull-right"></i>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="tables/simple.html"><i class="fa fa-angle-double-right"></i> Simple tables</a></li>
-                        <li><a href="tables/data.html"><i class="fa fa-angle-double-right"></i> Data tables</a></li>
+                        <li><a href="{$smarty_url}?module=traffic"><i class="fa fa-angle-double-right"></i> Overview</a></li>
+                        <li><a href="{$smarty_url}?module=traffic&protocol=all"><i class="fa fa-angle-double-right"></i> All protocols</a></li>
+                        <li><a href="{$smarty_url}?module=traffic&protocol=tcp"><i class="fa fa-angle-double-right"></i> TCP</a></li>
                     </ul>
                 </li>
                 <li>
@@ -458,7 +458,5 @@
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" type="text/javascript"></script>
 <!-- AdminLTE App -->
 <script src="include/js/AdminLTE/app.js" type="text/javascript"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="include/js/AdminLTE/demo.js" type="text/javascript"></script>
 </body>
 </html>
