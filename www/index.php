@@ -34,7 +34,7 @@ if (isset($_GET['debug'])) {
     $oSmarty->debugging = false;
 }
 
-$oSmarty->caching = true;
+$oSmarty->caching = false;
 $oSmarty->cache_lifetime = 120;
 
 
