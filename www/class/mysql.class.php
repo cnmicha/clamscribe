@@ -112,7 +112,7 @@ class cMySql
      *                           formatted dates, ect).
      * @return boolean Returns TRUE on success or FALSE on error
      */
-    public function AutoInsertUpdate($tableName, $valuesArray, $whereArray)
+    public function InsertUpdate($tableName, $valuesArray, $whereArray)
     {
         $this->ResetError();
         $this->SelectRows($tableName, $whereArray);
@@ -1540,6 +1540,26 @@ class cMySql
                 return $this->last_result;
             } else {
                 return true;
+            }
+        }
+    }
+
+    public function SelectArray($tableName, $whereArray = null, $columns = null,
+                               $sortColumns = null, $sortAscending = true,
+                               $limit = null)
+    {
+        $this->ResetError();
+        if (!$this->IsConnected()) {
+            $this->SetError("No connection");
+            return false;
+        } else {
+            $sql = self::BuildSQLSelect($tableName, $whereArray,
+                $columns, $sortColumns, $sortAscending, $limit);
+            // Execute the UPDATE
+            if (!$this->Query($sql)) {
+                return $this->last_result;
+            } else {
+                return $this->RowArray();
             }
         }
     }
