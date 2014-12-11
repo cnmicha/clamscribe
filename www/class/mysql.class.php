@@ -60,24 +60,6 @@ class cMySql
      */
     public $ThrowExceptions = false;
 
-
-    /**
-     * Singleton pattern
-     *
-     * @author cnmicha
-     * @date 2014-12-10
-     *
-     * @return cMySql
-     */
-    public static function getInstance()
-    {
-        static $inst = null;
-        if ($inst === null) {
-            $inst = new self();
-        }
-        return $inst;
-    }
-
     /**
      * Constructor: Opens the connection to the database
      *
