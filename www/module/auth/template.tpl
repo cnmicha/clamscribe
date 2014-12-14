@@ -34,7 +34,7 @@
                         <input type="password" name="pass" class="form-control" placeholder="Password"/>
                     </div>
                     <div class="form-group">
-                        <input type="checkbox" name="remember_me"/> Remember me
+                        <input type="checkbox" name="remember_me" disabled/> Remember me (disabled for security reasons)
                     </div>
                 </div>
                 <div class="footer">
