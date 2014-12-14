@@ -45,7 +45,7 @@ $cSmarty->cache_lifetime = 120;
 if (isset($_GET['module'])) {
     runModule($cSmarty, $_GET['module']);
 } else {
-    runModule($cSmarty, 'index');
+    runModule($cSmarty, 'dashboard');
 }
 
 
@@ -62,6 +62,22 @@ function runModule($cSmarty, $sModuleName) {
         $cSmarty->assign('page_caption', $aConfig['caption']);
         $cSmarty->assign('user_ip', $_SERVER['REMOTE_ADDR']);
 
+        if(cAuth::getInstance()->isLoggedIn()) {
+            $cSmarty->assign('login_success', true);
+            $cSmarty->assign('login_username', cAuth::getInstance()->getUsernameByUserID(cAuth::getInstance()->getUserId()));
+        } else {
+            $cSmarty->assign('login_success', false);
+            $cSmarty->assign('login_username', NULL);
+
+        }
+
+
+        if($aConfig['needsLogin'] == true) {
+            if(!cAuth::getInstance()->isLoginValid()) {
+                cRedirect::getInstance()->goToPage('module=auth');
+                exit;
+            }
+        }
 
         require_once('module/' . $sModuleName . '/action.php');
 
@@ -71,7 +87,7 @@ function runModule($cSmarty, $sModuleName) {
             $sUrl = (isset($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . ROOT_URL_FROM_DOCROOT . '/index.php';
             $cSmarty->assign('smarty_url', $sUrl);
 
-            $cSmarty->display('include/page.tpl'); //if page content not locked (no err message) display template
+            $cSmarty->display('include/' . $aConfig['template']); //if page content not locked (no err message) display template
         }
 
     } else {
