@@ -1595,7 +1595,7 @@ class cMySql
                 $ibRowsCount = $this->rowCount();
                 if ($ibRowsCount != false) {
                     if ($ibRowsCount > 0) {
-                        for ($i = 0; $i <= $ibRowsCount; $i++) {
+                        for ($i = 0; $i < $ibRowsCount; $i++) {
                             $aReturn[] = $this->rowArray($i);
                         }
                     }
