@@ -35,11 +35,12 @@
                         </tbody>
                         <tfoot>
                         <tr>
-                            <th>Rendering engine</th>
-                            <th>Browser</th>
-                            <th>Platform(s)</th>
-                            <th>Engine version</th>
-                            <th>CSS grade</th>
+                            <th>Time</th>
+                            <th>Source IP</th>
+                            <th>Source port</th>
+                            <th>Dest. IP</th>
+                            <th>Dest. port</th>
+                            <th>Size</th>
                         </tr>
                         </tfoot>
                     </table>
@@ -105,11 +106,12 @@
                         </tbody>
                         <tfoot>
                         <tr>
-                            <th>Rendering engine</th>
-                            <th>Browser</th>
-                            <th>Platform(s)</th>
-                            <th>Engine version</th>
-                            <th>CSS grade</th>
+                            <th>Time</th>
+                            <th>Source IP</th>
+                            <th>Source port</th>
+                            <th>Dest. IP</th>
+                            <th>Dest. port</th>
+                            <th>Size</th>
                         </tr>
                         </tfoot>
                     </table>
