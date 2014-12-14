@@ -2,14 +2,16 @@
 /**
  * Created by PhpStorm.
  * User: micha
- * Date: 08.12.2014
- * Time: 17:28
+ * Date: 14.12.2014
+ * Time: 02:28
  */
 
 //include classes
 require_once('class/display.class.php');
 require_once('class/error.class.php');
 require_once('class/mysql.class.php');
+require_once('class/auth.class.php');
+require_once('class/redirect.class.php');
 
 //include config
 require_once('config/config.inc.php');
@@ -17,65 +19,59 @@ require_once('config/config.inc.php');
 
 require 'libs/Smarty.class.php';
 
+session_start();
 
-$oSmarty = new Smarty;
+$cSmarty = new Smarty;
 
 //$smarty->force_compile = true;
 if (isset($_GET['debug'])) {
     switch ($_GET['debug']) {
         case 'true':
-            $oSmarty->debugging = true;
+            $cSmarty->debugging = true;
             break;
 
         default:
-            $oSmarty->debugging = false;
+            $cSmarty->debugging = false;
     }
 } else {
-    $oSmarty->debugging = false;
+    $cSmarty->debugging = false;
 }
 
-$oSmarty->caching = false;
-$oSmarty->cache_lifetime = 120;
+$cSmarty->caching = false;
+$cSmarty->cache_lifetime = 120;
 
 
 //module system
 if (isset($_GET['module'])) {
-    if (file_exists('module/' . $_GET['module'] . '/action.php') && file_exists('module/' . $_GET['module'] . '/template.tpl') && file_exists('module/' . $_GET['module'] . '/config.php')) {
-        require_once('module/' . $_GET['module'] . '/config.php');
-        $oSmarty->assign('page_title', $aConfig['title']);
-        $oSmarty->assign('page_caption', $aConfig['caption']);
-        $oSmarty->assign('user_ip', $_SERVER['REMOTE_ADDR']);
-
-        require_once('module/' . $_GET['module'] . '/action.php');
-
-        if (!cDisplay::getInstance()->isBLocked()) {
-            $oSmarty->assign('tpl_file', '../module/' . $_GET['module'] . '/template.tpl');
-
-            $sUrl = (isset($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . ROOT_URL_FROM_DOCROOT . '/index.php';
-            $oSmarty->assign('smarty_url', $sUrl);
-
-            $oSmarty->display('include/page.tpl'); //if page content not locked (no err message) display template
-        }
-
-    } else {
-        cError::getInstance()->throwError(cError::ERR_TYPE_TEMPLATE);
-    }
+    runModule($cSmarty, $_GET['module']);
 } else {
-    if (file_exists('module/dashboard/action.php') && file_exists('module/dashboard/template.tpl') && file_exists('module/dashboard/config.php')) {
-        require_once('module/dashboard/config.php');
-        $oSmarty->assign('page_title', $aConfig['title']);
-        $oSmarty->assign('page_caption', $aConfig['caption']);
-        $oSmarty->assign('user_ip', $_SERVER['REMOTE_ADDR']);
+    runModule($cSmarty, 'index');
+}
 
-        require_once('module/dashboard/action.php');
+
+
+
+//functions:
+
+function runModule($cSmarty, $sModuleName) {
+    if (file_exists('module/' . $sModuleName . '/action.php') && file_exists('module/' . $sModuleName . '/template.tpl') && file_exists('module/' . $sModuleName . '/config.php')) {
+        require_once('module/' . $sModuleName . '/config.php');
+
+
+        $cSmarty->assign('page_title', $aConfig['title']);
+        $cSmarty->assign('page_caption', $aConfig['caption']);
+        $cSmarty->assign('user_ip', $_SERVER['REMOTE_ADDR']);
+
+
+        require_once('module/' . $sModuleName . '/action.php');
 
         if (!cDisplay::getInstance()->isBLocked()) {
-            $oSmarty->assign('tpl_file', '../module/dashboard/template.tpl');
+            $cSmarty->assign('tpl_file', '../module/' . $sModuleName . '/template.tpl');
 
             $sUrl = (isset($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . ROOT_URL_FROM_DOCROOT . '/index.php';
-            $oSmarty->assign('smarty_url', $sUrl);
+            $cSmarty->assign('smarty_url', $sUrl);
 
-            $oSmarty->display('include/page.tpl'); //if page content not locked (no err message) display template
+            $cSmarty->display('include/page.tpl'); //if page content not locked (no err message) display template
         }
 
     } else {
