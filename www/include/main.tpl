@@ -240,7 +240,7 @@
 <li class="dropdown user user-menu">
     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
         <i class="glyphicon glyphicon-user"></i>
-        <span>Admin <i class="caret"></i></span>
+        <span>{$login_username} <i class="caret"></i></span>
     </a>
     <ul class="dropdown-menu">
         <!-- User image -->
@@ -248,7 +248,7 @@
             <img src="include/img/avatar3.png" class="img-circle" alt="User Image"/>
 
             <p>
-                Admin - Web Developer
+                {$login_username} - Web Developer
                 <small>Member since Nov. 2012</small>
             </p>
         </li>
@@ -270,7 +270,7 @@
                 <a href="#" class="btn btn-default btn-flat">Profile</a>
             </div>
             <div class="pull-right">
-                <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                <a href="{$smarty_url}?module=auth&action=logout" class="btn btn-default btn-flat">Sign out</a>
             </div>
         </li>
     </ul>
@@ -290,7 +290,7 @@
                     <img src="include/img/avatar3.png" class="img-circle" alt="User Image"/>
                 </div>
                 <div class="pull-left info">
-                    <p>Hello, Admin</p>
+                    <p>Hello, {$login_username}</p>
 
                     <a href="#"><i class="fa fa-circle text-success"></i> {$user_ip}</a>
                 </div>

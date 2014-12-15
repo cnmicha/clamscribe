@@ -8,5 +8,7 @@
 
 $aConfig = array(
     'title' => 'Dashboard',
-    'caption' => 'Control panel'
+    'caption' => 'Control panel',
+    'needsLogin' => true,
+    'template' => 'main.tpl'
 );

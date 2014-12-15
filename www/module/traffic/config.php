@@ -8,5 +8,7 @@
 
 $aConfig = array(
     'title' => 'Traffic',
-    'caption' => 'View connection data'
+    'caption' => 'View connection data',
+    'needsLogin' => true,
+    'template' => 'main.tpl'
 );
