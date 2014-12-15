@@ -20,8 +20,8 @@ if (isset($_GET['action'])) {
             if (isset($_GET['fail'])) {
                 if ($_GET['fail'] == 'true') {
                     $cSmarty->assign('fail', true);
-                } else $cSmarty->assign('fail', true);
-            } else $cSmarty->assign('fail', true);
+                } else $cSmarty->assign('fail', false);
+            } else $cSmarty->assign('fail', false);
 
 
             if (!cAuth::getInstance()->isLoggedIn()) {

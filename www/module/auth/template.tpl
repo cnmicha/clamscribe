@@ -30,11 +30,12 @@
             <form action="{$smarty_url}?module=auth&action=login" method="post">
 
                 <div class="body bg-gray">
-                {if $fail==true}
-        <div style="color:red;">
-            Login failed.
-        </div>
-    {/if}
+                    {if $fail==true}
+                        <div style="color:red; padding-left: 5px; padding-top: 5px;">
+                            Login failed.
+                        </div>
+                    {/if}
+
                     <div class="form-group">
                         <input type="text" name="user" class="form-control" placeholder="User ID"/>
                     </div>
