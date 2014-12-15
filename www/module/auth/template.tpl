@@ -25,8 +25,16 @@
 
         <div class="form-box" id="login-box">
             <div class="header">Sign In</div>
+
+
             <form action="{$smarty_url}?module=auth&action=login" method="post">
+
                 <div class="body bg-gray">
+                {if $fail==true}
+        <div style="color:red;">
+            Login failed.
+        </div>
+    {/if}
                     <div class="form-group">
                         <input type="text" name="user" class="form-control" placeholder="User ID"/>
                     </div>
@@ -55,11 +63,13 @@
 
 {elseif $page == 'logout'}
     <script language="JavaScript" type="text/javascript">
-        window.setTimeout(function(){
+        window.setTimeout(function () {
             window.location.href = "{$smarty_url}";
         }, 2000);
     </script>
-
-    Logout successful.<br>
-    If it doesn't redirect in a few seconds, click <a href="{$smarty_url}">here</a>.
+    Logout successful.
+    <br>
+    If it doesn't redirect in a few seconds, click
+    <a href="{$smarty_url}">here</a>
+    .
 {/if}

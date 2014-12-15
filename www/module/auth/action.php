@@ -17,6 +17,13 @@ if (isset($_GET['action'])) {
         case 'login':
             $cSmarty->assign('page', 'login');
 
+            if (isset($_GET['fail'])) {
+                if ($_GET['fail'] == 'true') {
+                    $cSmarty->assign('fail', true);
+                } else $cSmarty->assign('fail', true);
+            } else $cSmarty->assign('fail', true);
+
+
             if (!cAuth::getInstance()->isLoggedIn()) {
 
                 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -26,6 +33,7 @@ if (isset($_GET['action'])) {
                             echo('login success');
                             cRedirect::getInstance()->goToPage();
                         } else {
+                            cRedirect::getInstance()->goToPage('module=auth&action=login&fail=true');
                         }
                     }
                 }
