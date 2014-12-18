@@ -265,6 +265,35 @@ class cAuth
         return $aUser['user'];
     }
 
+    function getUserIdByUsername($sUsername)
+    {
+        $oSql = new cMySql();
+        $aUser = $oSql->selectOne('login_credentials', ['user' => $sUsername]);
+
+        return $aUser['id'];
+    }
+
+    function isValidUsername($sUsername) {
+        $oSql = new cMySql();
+        $aUser = $oSql->selectOne('login_credentials', ['user' => $sUsername]);
+
+        if((!$aUser['user'] == NULL) and (!$aUser['is_banned'] == 1)) return true;
+        else return false;
+    }
+
+    function setNewPassword($iUserId, $sCleartextPassword) {
+        $sSalt = self::generateSalt();
+        $sSaltedPw = self::saltPassword($sCleartextPassword, $sSalt);
+
+        $oSql = new cMySql();
+        $aUser = $oSql->selectOne('login_credentials', ['id' => $iUserId]);
+
+        if($aUser['user'] == NULL) return false;
+
+        if($oSql->insertUpdate('login_credentials', ['salted_pw_hash' => $sSaltedPw, 'salt' => $sSalt], ['id' => $iUserId]) != false) return true;
+        return false;
+    }
+
     /**
      * Returns user-id if user is logged in, otherwise NULL
      *
