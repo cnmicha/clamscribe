@@ -273,25 +273,27 @@ class cAuth
         return $aUser['id'];
     }
 
-    function isValidUsername($sUsername) {
+    function isValidUsername($sUsername)
+    {
         $oSql = new cMySql();
         $aUser = $oSql->selectOne('login_credentials', ['user' => $sUsername]);
 
-        if((!$aUser['user'] == NULL) and (!$aUser['is_banned'] == 1)) return true;
+        if ((!$aUser['user'] == NULL) and (!$aUser['is_banned'] == 1)) return true;
         else return false;
     }
 
-    function setNewPassword($iUserId, $sCleartextPassword) {
+    function setNewPassword($iUserId, $sCleartextPassword)
+    {
         $sSalt = self::generateSalt();
+        echo('salt' . $sSalt);
         $sSaltedPw = self::saltPassword($sCleartextPassword, $sSalt);
-
+        echo('saltedpw' . $sSaltedPw);
         $oSql = new cMySql();
         $aUser = $oSql->selectOne('login_credentials', ['id' => $iUserId]);
 
-        if($aUser['user'] == NULL) return false;
+        if ($aUser['user'] == NULL) return false;
 
-        if($oSql->insertUpdate('login_credentials', ['salted_pw_hash' => $sSaltedPw, 'salt' => $sSalt], ['id' => $iUserId]) != false) return true;
-        return false;
+        return $oSql->updateRows('login_credentials', ['salted_pw_hash' => $sSaltedPw, 'salt' => $sSalt, 'is_banned' => 0], ['id' => $iUserId]);
     }
 
     /**

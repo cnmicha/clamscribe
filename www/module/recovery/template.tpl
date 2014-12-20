@@ -25,15 +25,15 @@
 </head>
 <body>
 
-{if $success == true}
+{if $success === true}
     <h3 style="color: green;">Password changed.</h3>
 {/if}
 
-{if $success == false}
+{if $success === false}
     <h3 style="color: red;">Password was not changed. Please check your data.</h3>
 {/if}
 
-<form action="{$smarty_url}?module=recovery" method="post">
+<form action="{$smarty_url}?module=recovery&action=submit" method="post">
     <table align="center" border="0" cellpadding="0" cellspacing="0">
         <tr>
             <td>
@@ -80,6 +80,7 @@
                         <p>
                             Please contact your system administrator to get login credentials to the MySQL database.
                             After that, simply type in the username whose password you want to reset.<br>
+                            In case somebody has banned the user, he will be unbanned automatically.<br>
                             <small>Please note: The MySQL login credentials have to be the same as in the config file.</small>
                         </p>
 

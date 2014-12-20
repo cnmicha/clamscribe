@@ -273,7 +273,7 @@ class cMySql
      * [STATIC] Builds a SQL UPDATE statement
      *
      * @param string $tableName The name of the table
-     * @param array $valuesArray An associative array containing the column
+     * @param array $aWhere An associative array containing the column
      *                            names as keys and values as data. The values
      *                            must be SQL ready (i.e. quotes around
      *                            strings, formatted dates, ect)
@@ -284,14 +284,16 @@ class cMySql
      *                           then all values in the table are updated.
      * @return string Returns a SQL UPDATE statement
      */
-    static public function buildSQLUpdate($tableName, $valuesArray, $whereArray = null)
+    static public function buildSQLUpdate($tableName, $aWhere, $whereArray = null)
     {
         $sql = "";
-        foreach ($valuesArray as $key => $value) {
+        foreach ($aWhere as $sKey => $mValue) {
+            if(is_string($mValue)) $mValue = self::quoteStr($mValue);
+
             if (strlen($sql) == 0) {
-                $sql = "`" . $key . "` = " . $value;
+                $sql = "`" . $sKey . "` = " . $mValue;
             } else {
-                $sql .= ", `" . $key . "` = " . $value;
+                $sql .= ", `" . $sKey . "` = " . $mValue;
             }
         }
         $sql = "UPDATE `" . $tableName . "` SET " . $sql;
@@ -1932,7 +1934,7 @@ class cMySql
      *                           then all values in the table are updated.
      * @return boolean Returns TRUE on success or FALSE on error
      */
-    public function tpdateRows($tableName, $valuesArray, $whereArray = null)
+    public function updateRows($tableName, $valuesArray, $whereArray = null)
     {
         $this->resetError();
         if (!$this->isConnected()) {

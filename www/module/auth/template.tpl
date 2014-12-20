@@ -32,7 +32,7 @@
                 <div class="body bg-gray">
                     {if $fail==true}
                         <div style="color:red; padding-left: 5px; padding-top: 5px;">
-                            Login failed.
+                            Login failed. You can reset your password <a href="{$smarty_url}?module=recovery">here</a>.
                         </div>
                     {/if}
 
