@@ -17,9 +17,13 @@ class cRedirect {
         return $inst;
     }
 
-    function goToPage($sQueryStr = '') {
+    function getSmartyUrl() {
         $sUrl = (isset($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . ROOT_URL_FROM_DOCROOT . '/index.php';
+        return $sUrl;
+    }
 
-        header('Location: ' . $sUrl . '?' . $sQueryStr);
+    function goToPage($sQueryStr = '') {
+        header("HTTP/1.1 303 See Other");
+        header('Location: ' . self::getSmartyUrl() . '?' . $sQueryStr);
     }
 } 

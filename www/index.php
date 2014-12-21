@@ -84,8 +84,7 @@ function runModule($cSmarty, $sModuleName) {
         if (!cDisplay::getInstance()->isBLocked()) {
             $cSmarty->assign('tpl_file', '../module/' . $sModuleName . '/template.tpl');
 
-            $sUrl = (isset($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . ROOT_URL_FROM_DOCROOT . '/index.php';
-            $cSmarty->assign('smarty_url', $sUrl);
+            $cSmarty->assign('smarty_url', cRedirect::getInstance()->getSmartyUrl());
 
             $cSmarty->display('include/' . $aConfig['template']); //if page content not locked (no err message) display template
         }
