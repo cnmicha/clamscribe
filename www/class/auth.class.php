@@ -18,6 +18,7 @@ class cAuth
     const LOGIN_USER_LOGOUT = 'LOGIN_USER_LOGOUT';
     const LOGIN_FORCE_LOGOUT = 'LOGIN_FORCE_LOGOUT';
     const LOGIN_CHANGE_USERNAME = 'LOGIN_CHANGE_USERNAME';
+    const LOGIN_CHANGE_PASSWORD = 'LOGIN_CHANGE_PASSWORD';
 
     private $randomState;
     private $rounds;
@@ -310,7 +311,11 @@ class cAuth
 
         if ($aUser['user'] == NULL) return false;
 
-        return $oSql->updateRows('login_credentials', ['salted_pw_hash' => $sSaltedPw, 'salt' => $sSalt, 'is_banned' => 0], ['id' => $iUserId]);
+        if ($oSql->updateRows('login_credentials', ['salted_pw_hash' => $sSaltedPw, 'salt' => $sSalt, 'is_banned' => 0], ['id' => $iUserId])) {
+            self::logAuthAction(self::LOGIN_CHANGE_PASSWORD, $iUserId);
+            return true;
+        }
+        return false;
     }
 
     function setNewUsername($iUserId, $sNewUsername)
