@@ -17,6 +17,7 @@ class cAuth
     const LOGIN_WRONG_REMOTE_ADDR = 'LOGN_WRONG_REMOTE_ADDR';
     const LOGIN_USER_LOGOUT = 'LOGIN_USER_LOGOUT';
     const LOGIN_FORCE_LOGOUT = 'LOGIN_FORCE_LOGOUT';
+    const LOGIN_CHANGE_USERNAME = 'LOGIN_CHANGE_USERNAME';
 
     private $randomState;
     private $rounds;
@@ -82,6 +83,24 @@ class cAuth
             self::logAuthAction(self::LOGIN_FAIL);
         }
 
+        return false;
+    }
+
+    function isCorrectPassword($sUsername, $sPassword)
+    {
+        //check for valid credentials
+        $oSql = new cMySql();
+        $aUser = $oSql->selectOne('login_credentials', ['user' => trim($sUsername)]);
+
+        if (is_array($aUser)) {
+            if ((self::saltPassword($sPassword, $aUser['salt']) == $aUser['salted_pw_hash'])) {
+                if ($aUser['is_banned'] == 0) {
+                    return true;
+                }
+            }
+        }
+
+        //wrong password
         return false;
     }
 
@@ -208,9 +227,9 @@ class cAuth
         $oSql = new cMySql();
 
         if ($iUserId == NULL) {
-            $oSql->insertRow('login_log', ['timestamp' => date('Y-m-d H:i:s'), 'remote_addr' => $_SERVER['REMOTE_ADDR'], 'type' => $sType]);
+            $oSql->insertRow('auth_log', ['timestamp' => date('Y-m-d H:i:s'), 'remote_addr' => $_SERVER['REMOTE_ADDR'], 'session_id' => session_id(), 'type' => $sType]);
         } else {
-            $oSql->insertRow('login_log', ['user_id' => $iUserId, 'timestamp' => date('Y-m-d H:i:s'), 'remote_addr' => $_SERVER['REMOTE_ADDR'], 'type' => $sType]);
+            $oSql->insertRow('auth_log', ['user_id' => $iUserId, 'timestamp' => date('Y-m-d H:i:s'), 'remote_addr' => $_SERVER['REMOTE_ADDR'], 'session_id' => session_id(), 'type' => $sType]);
         }
     }
 
@@ -285,15 +304,27 @@ class cAuth
     function setNewPassword($iUserId, $sCleartextPassword)
     {
         $sSalt = self::generateSalt();
-        echo('salt' . $sSalt);
         $sSaltedPw = self::saltPassword($sCleartextPassword, $sSalt);
-        echo('saltedpw' . $sSaltedPw);
         $oSql = new cMySql();
         $aUser = $oSql->selectOne('login_credentials', ['id' => $iUserId]);
 
         if ($aUser['user'] == NULL) return false;
 
         return $oSql->updateRows('login_credentials', ['salted_pw_hash' => $sSaltedPw, 'salt' => $sSalt, 'is_banned' => 0], ['id' => $iUserId]);
+    }
+
+    function setNewUsername($iUserId, $sNewUsername)
+    {
+        $oSql = new cMySql();
+        $aUser = $oSql->selectOne('login_credentials', ['id' => $iUserId]);
+
+        if ($aUser['user'] == NULL) return false;
+
+        if ($oSql->updateRows('login_credentials', ['user' => $sNewUsername], ['id' => $iUserId])) {
+            self::logAuthAction(self::LOGIN_CHANGE_USERNAME, $iUserId);
+            return true;
+        }
+        return false;
     }
 
     /**

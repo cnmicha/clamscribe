@@ -6,8 +6,9 @@
  * Time: 14:36
  */
 
+
 $aConfig = array(
-    'title' => 'Acoount',
+    'title' => 'Account',
     'caption' => 'Change account settings',
     'needsLogin' => true,
     'template' => 'main.tpl'
