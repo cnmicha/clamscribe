@@ -6,9 +6,25 @@
  * Time: 19:51
  */
 
-$aConfig = array(
-    'title' => 'Traffic',
-    'caption' => 'View connection data',
+$aModule = array(
+    'title' => 'traffic data',
     'needsLogin' => true,
-    'template' => 'main.tpl'
+    'main_page' => 'index'
+);
+
+$aPages = array(
+    'index' => array(
+        'caption' => 'All protocols',
+        'site_template' => 'main.tpl',
+
+        'action_file' => 'index.php',
+        'template_file' => 'index.tpl'
+    ),
+    'tcp' => array(
+        'caption' => 'All protocols',
+        'site_template' => 'main.tpl',
+
+        'action_file' => 'tcp.php',
+        'template_file' => 'tcp.tpl'
+    )
 );

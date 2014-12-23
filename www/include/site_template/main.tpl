@@ -363,8 +363,8 @@
                     </a>
                     <ul class="treeview-menu">
                         <li><a href="{$smarty_url}?module=traffic"><i class="fa fa-angle-double-right"></i> Overview</a></li>
-                        <li><a href="{$smarty_url}?module=traffic&protocol=all"><i class="fa fa-angle-double-right"></i> All protocols</a></li>
-                        <li><a href="{$smarty_url}?module=traffic&protocol=tcp"><i class="fa fa-angle-double-right"></i> TCP</a></li>
+                        <li><a href="{$smarty_url}?module=traffic"><i class="fa fa-angle-double-right"></i> All protocols</a></li>
+                        <li><a href="{$smarty_url}?module=traffic&page=tcp"><i class="fa fa-angle-double-right"></i> TCP</a></li>
                     </ul>
                 </li>
                 <li>

@@ -6,9 +6,18 @@
  * Time: 19:51
  */
 
-$aConfig = array(
+$aModule = array(
     'title' => 'Dashboard',
-    'caption' => 'Control panel',
     'needsLogin' => true,
-    'template' => 'main.tpl'
+    'main_page' => 'index'
+);
+
+$aPages = array(
+    'index' => array(
+        'caption' => 'Control panel',
+        'site_template' => 'main.tpl',
+
+        'action_file' => 'index.php',
+        'template_file' => 'index.tpl'
+    )
 );
