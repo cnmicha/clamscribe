@@ -36,15 +36,15 @@ if (isset($_GET['action'])) {
 if (isset($_GET['success'])) {
     switch($_GET['success']) {
         case 'true':
-            $cSmarty->assign('success', true);
+            $oSmarty->assign('success', true);
             break;
 
         case 'false':
-            $cSmarty->assign('success', false);
+            $oSmarty->assign('success', false);
             break;
 
         default:
-            $cSmarty->assign('success', 'none');
+            $oSmarty->assign('success', 'none');
             break;
     }
-} else $cSmarty->assign('success', 'none');
+} else $oSmarty->assign('success', 'none');

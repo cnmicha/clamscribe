@@ -2,14 +2,22 @@
 /**
  * Created by PhpStorm.
  * User: micha
- * Date: 21.12.2014
- * Time: 14:36
+ * Date: 10.12.2014
+ * Time: 19:51
  */
 
-
-$aConfig = array(
+$aModule = array(
     'title' => 'Account',
-    'caption' => 'Change account settings',
     'needsLogin' => true,
-    'template' => 'main.tpl'
+    'main_page' => 'index'
+);
+
+$aPages = array(
+    'index' => array(
+        'caption' => 'Change account settings',
+        'site_template' => 'main.tpl',
+
+        'action_file' => 'index.php',
+        'template_file' => 'index.tpl'
+    )
 );

@@ -6,9 +6,25 @@
  * Time: 19:51
  */
 
-$aConfig = array(
+$aModule = array(
     'title' => 'Login',
-    'caption' => 'Please enter your login credentials',
     'needsLogin' => false,
-    'template' => 'empty.tpl'
+    'main_page' => 'login'
+);
+
+$aPages = array(
+    'login' => array(
+        'caption' => 'Please enter your login credentials',
+        'site_template' => 'main.tpl',
+
+        'action_file' => 'login.php',
+        'template_file' => 'login.tpl'
+    ),
+    'logout' => array(
+        'caption' => 'Logout',
+        'site_template' => 'main.tpl',
+
+        'action_file' => 'logout.php',
+        'template_file' => 'logout.tpl'
+    )
 );

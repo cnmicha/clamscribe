@@ -2,13 +2,22 @@
 /**
  * Created by PhpStorm.
  * User: micha
- * Date: 15.12.2014
- * Time: 22:28
+ * Date: 10.12.2014
+ * Time: 19:51
  */
 
-$aConfig = array(
+$aModule = array(
     'title' => 'Password recovery',
-    'caption' => 'l',
     'needsLogin' => false,
-    'template' => 'empty.tpl'
+    'main_page' => 'index'
+);
+
+$aPages = array(
+    'index' => array(
+        'caption' => '',
+        'site_template' => 'empty.tpl',
+
+        'action_file' => 'index.php',
+        'template_file' => 'index.tpl'
+    )
 );

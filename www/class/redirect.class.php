@@ -22,8 +22,15 @@ class cRedirect {
         return $sUrl;
     }
 
-    function goToPage($sQueryStr = '') {
+    function goToPage($sModuleName = 'dashboard', $aQueryStringVars = NULL, $sPageName = NULL) {
+        $sQueryStrVars = '';
+        foreach($aQueryStringVars as $sKey => $sVal) {
+            $sQueryStrVars .= '&' . urlencode($sKey) . '=' . urlencode($sVal);
+        }
+
+        if(!$sPageName == NULL) $sPageName = '&page=' . $sPageName;
+
         header("HTTP/1.1 303 See Other");
-        header('Location: ' . self::getSmartyUrl() . '?' . $sQueryStr);
+        header('Location: ' . self::getSmartyUrl() . '?module=' . $sModuleName . $sPageName . $sQueryStrVars);
     }
 } 

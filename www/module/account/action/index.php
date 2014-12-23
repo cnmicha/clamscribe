@@ -30,16 +30,16 @@ if (isset($_GET['page'])) {
                     $bUsernameChanged = cAuth::getInstance()->setNewUsername(cAuth::getInstance()->getUserId(), $_POST['username']);
                 }
 
-                $sVars = '';
-                if ($bUsernameChanged) $sVars .= '&username_changed=true';
-                if ($bPasswordChanged) $sVars .= '&password_changed=true';
+                $aVars = array();
+                if ($bUsernameChanged) $aVars['username_changed'] = 'true';
+                if ($bPasswordChanged) $aVars['password_changed'] = 'true';
 
-                if($sVars == '') $sVars = '&nothing_changed=true';
+                if($aVars == '') $aVars['nothing_changed'] = 'true';
 
-                cRedirect::getInstance()->goToPage('module=account' . $sVars);
+                cRedirect::getInstance()->goToPage('account' . $aVars);
 
-            } else cRedirect::getInstance()->goToPage('module=account&wrong_pw=true');
-        } else cRedirect::getInstance()->goToPage('module=account');
+            } else cRedirect::getInstance()->goToPage('account', ['wrong_pw' => 'true']);
+        } else cRedirect::getInstance()->goToPage('account');
 
     }
 }
@@ -48,20 +48,20 @@ if (isset($_GET['page'])) {
 
 if (isset($_GET['username_changed'])) {
     if ($_GET['username_changed'] == 'true') {
-        $cSmarty->assign('username_changed', true);
-    } else $cSmarty->assign('username_changed', false);
-} else $cSmarty->assign('username_changed', false);
+        $oSmarty->assign('username_changed', true);
+    } else $oSmarty->assign('username_changed', false);
+} else $oSmarty->assign('username_changed', false);
 
 
 if (isset($_GET['password_changed'])) {
     if ($_GET['password_changed'] == 'true') {
-        $cSmarty->assign('password_changed', true);
-    } else $cSmarty->assign('password_changed', false);
-} else $cSmarty->assign('password_changed', false);
+        $oSmarty->assign('password_changed', true);
+    } else $oSmarty->assign('password_changed', false);
+} else $oSmarty->assign('password_changed', false);
 
 
 if (isset($_GET['nothing_changed'])) {
     if ($_GET['nothing_changed'] == 'true') {
-        $cSmarty->assign('nothing_changed', true);
-    } else $cSmarty->assign('nothing_changed', false);
-} else $cSmarty->assign('nothing_changed', false);
+        $oSmarty->assign('nothing_changed', true);
+    } else $oSmarty->assign('nothing_changed', false);
+} else $oSmarty->assign('nothing_changed', false);
