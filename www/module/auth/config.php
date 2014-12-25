@@ -15,7 +15,7 @@ $aModule = array(
 $aPages = array(
     'login' => array(
         'caption' => 'Please enter your login credentials',
-        'site_template' => 'main.tpl',
+        'site_template' => 'empty.tpl',
 
         'action_file' => 'login.php',
         'template_file' => 'login.tpl'
