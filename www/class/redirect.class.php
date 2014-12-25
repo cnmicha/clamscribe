@@ -24,7 +24,7 @@ class cRedirect
         return $sUrl;
     }
 
-    function goToPage($sModuleName = 'dashboard', $aQueryStringVars = NULL, $sPageName = NULL)
+    function goToPage($sModuleName = 'dashboard', $sPageName = NULL, $aQueryStringVars = NULL)
     {
         $sQueryStrVars = '';
         foreach ($aQueryStringVars as $sKey => $sVal) {
@@ -37,7 +37,7 @@ class cRedirect
         header('Location: ' . self::getSmartyUrl() . '?module=' . $sModuleName . $sPageName . $sQueryStrVars);
     }
 
-    function getPageLink($sModuleName = 'dashboard', $aQueryStringVars = NULL, $sPageName = NULL)
+    function getPageLink($sModuleName = 'dashboard', $sPageName = NULL, $aQueryStringVars = NULL)
     {
         $sQueryStrVars = '';
         foreach ($aQueryStringVars as $sKey => $sVal) {

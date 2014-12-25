@@ -62,7 +62,38 @@ $aMenuElements[] = array(
 
     'treeElements' => array(
         0 => array(
+            'title' => 'Account',
+            'href' => cRedirect::getInstance()->getPageLink('account'),
 
+            'treeElements' => array()
+        ),
+        1 => array(
+            'title' => 'comig soonn',
+            'href' => '#',
+
+            'treeElements' => array()
+        )
+    )
+);
+
+$aMenuElements[] = array(
+    'title' => 'Traffic Data',
+    'icon' => 'fa-table',
+    'href' => cRedirect::getInstance()->getPageLink('traffic'),
+    'badge' => array(),
+
+    'treeElements' => array(
+        0 => array(
+            'title' => 'All Protocols',
+            'href' => cRedirect::getInstance()->getPageLink('taffic'),
+
+            'treeElements' => array()
+        ),
+        1 => array(
+            'title' => 'TCP',
+            'href' => cRedirect::getInstance()->getPageLink('traffic', 'tcp'),
+
+            'treeElements' => array()
         )
     )
 );

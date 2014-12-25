@@ -21,13 +21,13 @@ if (isset($_GET['action'])) {
 
                     if (cAuth::getInstance()->setNewPassword(cAuth::getInstance()->getUserIdByUsername($_POST['user']), $_POST['pass']))
 
-                        cRedirect::getInstance()->goToPage('recovery', ['success' => 'true']);
+                        cRedirect::getInstance()->goToPage('recovery', null, ['success' => 'true']);
 
 
-                } else cRedirect::getInstance()->goToPage('recovery', ['success' => 'false', 'step' => '2']);
+                } else cRedirect::getInstance()->goToPage('recovery', null, ['success' => 'false', 'step' => '2']);
 
 
-            } else cRedirect::getInstance()->goToPage('recovery', ['success' => 'false', 'step' => '1']);
+            } else cRedirect::getInstance()->goToPage('recovery', null, ['success' => 'false', 'step' => '1']);
 
         }
     }
