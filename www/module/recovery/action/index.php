@@ -7,7 +7,6 @@
  */
 
 
-
 if (isset($_GET['action'])) {
     if ($_GET['action'] == 'submit') {
 
@@ -22,19 +21,21 @@ if (isset($_GET['action'])) {
 
                     if (cAuth::getInstance()->setNewPassword(cAuth::getInstance()->getUserIdByUsername($_POST['user']), $_POST['pass']))
 
-                    cRedirect::getInstance()->goToPage('module=recovery&success=true');
+                        cRedirect::getInstance()->goToPage('recovery', null, ['success' => 'true']);
 
 
-                } else cRedirect::getInstance()->goToPage('module=recovery&success=false');
+                } else cRedirect::getInstance()->goToPage('recovery', null, ['success' => 'false', 'step' => '2']);
 
-            } else cRedirect::getInstance()->goToPage('module=recovery&success=false');
+
+            } else cRedirect::getInstance()->goToPage('recovery', null, ['success' => 'false', 'step' => '1']);
+
         }
     }
 }
 
 
 if (isset($_GET['success'])) {
-    switch($_GET['success']) {
+    switch ($_GET['success']) {
         case 'true':
             $oSmarty->assign('success', true);
             break;

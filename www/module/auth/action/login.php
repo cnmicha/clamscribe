@@ -24,7 +24,7 @@ if (!cAuth::getInstance()->isLoggedIn()) {
                 //login successful
                 cRedirect::getInstance()->goToPage('dashboard');
             } else {
-                cRedirect::getInstance()->goToPage('module=auth&page=login&fail=true');
+                cRedirect::getInstance()->goToPage('auth', 'login', ['fail' => 'true']);
             }
         }
     }

@@ -30,8 +30,7 @@ class cModule
             if ($sPageName == NULL) $sPageName = $aModule['main_page'];
 
             if (!isset($aPages[$sPageName])) { //does page exist in config?
-                cError::getInstance()->throwError(cError::ERR_TYPE_TEMPLATE);
-                echo('<br>Error code 3');
+                cError::getInstance()->throwError(cError::ERR_TYPE_TEMPLATE, 'Error code 3');
                 exit;
             }
 
@@ -42,6 +41,7 @@ class cModule
                 $oSmarty->assign('page_title', $aModule['title']);
                 $oSmarty->assign('page_caption', $aPages[$sPageName]['caption']);
                 $oSmarty->assign('user_ip', $_SERVER['REMOTE_ADDR']);
+                $oSmarty->assign('template_breadcrumb', self::getBreadcrumbHtmlStr($aPages[$sPageName]['breadcrumb']));
 
                 if (cAuth::getInstance()->isLoggedIn()) {
                     $oSmarty->assign('login_success', true);
@@ -79,5 +79,23 @@ class cModule
             cError::getInstance()->throwError(cError::ERR_TYPE_TEMPLATE);
             echo('<br>Error code 1');
         }
+    }
+
+    function getBreadcrumbHtmlStr($aBreadcrumb)
+    {
+        $aBreadcrumbHtml = array();
+        $aBreadcrumbHtml[] = '<li><a href="' . cRedirect::getInstance()->getPageLink() . '"><i class="fa fa-dashboard"></i> Home</a></li>';
+
+        $i = 0;
+        foreach ($aBreadcrumb as $aKey) {
+            $i++;
+
+            $sHref = cRedirect::getInstance()->getPageLink($aKey['hrefModuleName'], $aKey['hrefPageName'], $aKey['hrefQueryStringArr']);
+
+            if ($i == count($aBreadcrumb)) $aBreadcrumbHtml[] = '<li class="active"><a href="' . $sHref . '">' . $aBreadcrumb[$i - 1]['title'] . '</a></li>';
+            else $aBreadcrumbHtml[] = '<li><a href="' . $sHref . '">' . $aBreadcrumb[$i - 1]['title'] . '</a></li>';
+        }
+
+        return implode($aBreadcrumbHtml);
     }
 }

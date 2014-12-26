@@ -18,6 +18,21 @@ $aPages = array(
         'site_template' => 'main.tpl',
 
         'action_file' => 'index.php',
-        'template_file' => 'index.tpl'
+        'template_file' => 'index.tpl',
+
+        'breadcrumb' => array(
+            0 => array(
+                'title' => 'Settings',
+                'hrefModuleName' => 'account',
+                'hrefPageName' => '',
+                'hrefQueryStringArr' => array()
+            ),
+            1 => array(
+                'title' => 'Account',
+                'hrefModuleName' => 'account',
+                'hrefPageName' => 'index',
+                'hrefQueryStringArr' => array()
+            )
+        )
     )
 );

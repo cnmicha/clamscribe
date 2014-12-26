@@ -36,9 +36,9 @@ if (isset($_GET['page'])) {
 
                 if($aVars == '') $aVars['nothing_changed'] = 'true';
 
-                cRedirect::getInstance()->goToPage('account' . $aVars);
+                cRedirect::getInstance()->goToPage('account', null, $aVars);
 
-            } else cRedirect::getInstance()->goToPage('account', ['wrong_pw' => 'true']);
+            } else cRedirect::getInstance()->goToPage('account', null, ['wrong_pw' => 'true']);
         } else cRedirect::getInstance()->goToPage('account');
 
     }
