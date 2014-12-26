@@ -275,7 +275,7 @@
                                 <a href="{$smarty_url}?module=account" class="btn btn-default btn-flat">Account</a>
                             </div>
                             <div class="pull-right">
-                                <a href="{$smarty_url}?module=auth&action=logout" class="btn btn-default btn-flat">Sign
+                                <a href="{$smarty_url}?module=auth&page=logout" class="btn btn-default btn-flat">Sign
                                     out</a>
                             </div>
                         </li>
