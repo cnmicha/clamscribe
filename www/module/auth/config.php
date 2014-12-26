@@ -18,13 +18,44 @@ $aPages = array(
         'site_template' => 'empty.tpl',
 
         'action_file' => 'login.php',
-        'template_file' => 'login.tpl'
-    ),
-    'logout' => array(
-        'caption' => 'Logout',
-        'site_template' => 'main.tpl',
+        'template_file' => 'login.tpl',
 
-        'action_file' => 'logout.php',
-        'template_file' => 'logout.tpl'
+        'breadcrumb' => array(
+            0 => array(
+                'title' => 'Authentication',
+                'hrefModuleName' => 'auth',
+                'hrefPageName' => '',
+                'hrefQueryStringArr' => array()
+            ),
+            1 => array(
+                'title' => 'Login',
+                'hrefModuleName' => 'auth',
+                'hrefPageName' => 'login',
+                'hrefQueryStringArr' => array()
+            )
+        ),
+
+        'logout' => array(
+            'caption' => 'Logout',
+            'site_template' => 'main.tpl',
+
+            'action_file' => 'logout.php',
+            'template_file' => 'logout.tpl',
+
+            'breadcrumb' => array(
+                0 => array(
+                    'title' => 'Authentication',
+                    'hrefModuleName' => 'auth',
+                    'hrefPageName' => '',
+                    'hrefQueryStringArr' => array()
+                ),
+                1 => array(
+                    'title' => 'Logout',
+                    'hrefModuleName' => 'auth',
+                    'hrefPageName' => 'logout',
+                    'hrefQueryStringArr' => array()
+                )
+            )
+        )
     )
 );
