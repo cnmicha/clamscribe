@@ -33,28 +33,28 @@ $aPages = array(
                 'hrefPageName' => 'login',
                 'hrefQueryStringArr' => array()
             )
-        ),
+        )
+    ),
 
-        'logout' => array(
-            'caption' => 'Logout',
-            'site_template' => 'main.tpl',
+    'logout' => array(
+        'caption' => 'Logout',
+        'site_template' => 'empty.tpl',
 
-            'action_file' => 'logout.php',
-            'template_file' => 'logout.tpl',
+        'action_file' => 'logout.php',
+        'template_file' => 'logout.tpl',
 
-            'breadcrumb' => array(
-                0 => array(
-                    'title' => 'Authentication',
-                    'hrefModuleName' => 'auth',
-                    'hrefPageName' => '',
-                    'hrefQueryStringArr' => array()
-                ),
-                1 => array(
-                    'title' => 'Logout',
-                    'hrefModuleName' => 'auth',
-                    'hrefPageName' => 'logout',
-                    'hrefQueryStringArr' => array()
-                )
+        'breadcrumb' => array(
+            0 => array(
+                'title' => 'Authentication',
+                'hrefModuleName' => 'auth',
+                'hrefPageName' => '',
+                'hrefQueryStringArr' => array()
+            ),
+            1 => array(
+                'title' => 'Logout',
+                'hrefModuleName' => 'auth',
+                'hrefPageName' => 'logout',
+                'hrefQueryStringArr' => array()
             )
         )
     )
