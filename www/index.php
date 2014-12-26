@@ -7,20 +7,24 @@
  */
 
 //include classes
-require_once('class/module.class.php');
-require_once('class/display.class.php');
-require_once('class/error.class.php');
-require_once('class/mysql.class.php');
-require_once('class/auth.class.php');
-require_once('class/redirect.class.php');
+
+//include classes
+require_once('include/class/classes.inc.php');
+foreach ($aClasses as $aClassFile) {
+    require_once($aClassFile);
+}
+
 
 //include config
 require_once('config/config.inc.php');
 
 
+//include smarty
 require 'libs/Smarty.class.php';
 
+
 session_start();
+
 
 $oSmarty = new Smarty;
 
