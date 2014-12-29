@@ -28,10 +28,11 @@ class cError
     public function throwError($iErrType, $sErrMsg = '')
     {
         //TODO
-        switch($iErrType) {
+        switch ($iErrType) {
             case self::ERR_TYPE_OTHER:
                 echo('other error');
 
+                cLog::getInstance()->logEvent(cLog::ERR_TYPE_OTHER, cAuth::getInstance()->getUserId());
                 cDisplay::getInstance()->setBLocked(true);
 
                 break;
@@ -39,6 +40,7 @@ class cError
             case self::ERR_TYPE_DATABASE:
                 echo('db error');
 
+                cLog::getInstance()->logEvent(cLog::ERR_TYPE_DATABASE, cAuth::getInstance()->getUserId());
                 cDisplay::getInstance()->setBLocked(true);
 
                 break;
@@ -46,6 +48,7 @@ class cError
             case self::ERR_TYPE_TEMPLATE:
                 echo('tpl error');
 
+                cLog::getInstance()->logEvent(cLog::ERR_TYPE_TEMPLATE, cAuth::getInstance()->getUserId());
                 cDisplay::getInstance()->setBLocked(true);
 
                 break;
@@ -53,6 +56,7 @@ class cError
             case self::ERR_TYPE_MISSING_PRIVILEGIES:
                 echo('rights error');
 
+                cLog::getInstance()->logEvent(cLog::ERR_TYPE_MISSING_PRIVILEGIES, cAuth::getInstance()->getUserId());
                 cDisplay::getInstance()->setBLocked(true);
 
                 break;
