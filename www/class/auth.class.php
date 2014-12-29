@@ -62,7 +62,7 @@ class cAuth
 
                     //login success
 
-                    self::logAuthAction(self::LOGIN_SUCCESS, $aUser['id']);
+                    cLog::getInstance()->logEvent(cLog::AUTH_LOGIN_SUCCESS, $aUser['id']);
                     $_SESSION['angemeldet'] = true;
                     $_SESSION['user_id'] = $aUser['id'];
                     $_SESSION['login_remote_addr'] = $_SERVER['REMOTE_ADDR'];
@@ -70,7 +70,7 @@ class cAuth
 
                     return true;
                 } else {
-                    self::logAuthAction(self::LOGIN_FAIL_USER_BANNED, $aUser['id']);
+                    cLog::getInstance()->logEvent(cLog::AUTH_LOGIN_FAIL_USER_BANNED, $aUser['id']);
 
                 }
             }
@@ -79,9 +79,9 @@ class cAuth
 
         //login fail
         if (is_array($aUser)) {
-            self::logAuthAction(self::LOGIN_FAIL, $aUser['id']);
+            cLog::getInstance()->logEvent(cLog::AUTH_LOGIN_FAIL, $aUser['id']);
         } else {
-            self::logAuthAction(self::LOGIN_FAIL);
+            cLog::getInstance()->logEvent(cLog::AUTH_LOGIN_FAIL);
         }
 
         return false;
@@ -129,14 +129,14 @@ class cAuth
                     if (self::checkRemoteAddr()) {
                         if ($_SESSION['angemeldet'] == true) {
                             //login ok
-                            self::logAuthAction(self::LOGIN_CHECK_OK, $niUserId);
+                            cLog::getInstance()->logEvent(cLog::AUTH_LOGIN_CHECK_OK, $niUserId);
 
 
                             return true;
                         }
                     }
                 } else {
-                    self::logAuthAction(self::LOGIN_FAIL_USER_BANNED, $aUser['id']);
+                    cLog::getInstance()->logEvent(cLog::AUTH_LOGIN_FAIL_USER_BANNED, $aUser['id']);
 
                 }
             }
@@ -146,7 +146,7 @@ class cAuth
         //logout user
         self::forceLogout();
 
-        self::logAuthAction(self::LOGIN_CHECK_BAD, $niUserId);
+        cLog::getInstance()->logEvent(cLog::AUTH_LOGIN_CHECK_BAD, $niUserId);
 
         return false;
     }
@@ -166,7 +166,7 @@ class cAuth
 
         session_destroy();
 
-        self::logAuthAction(self::LOGIN_USER_LOGOUT, $inUserId);
+        cLog::getInstance()->logEvent(cLog::AUTH_LOGIN_USER_LOGOUT, $inUserId);
     }
 
     /**
@@ -183,7 +183,7 @@ class cAuth
 
         session_destroy();
 
-        self::logAuthAction(self::LOGIN_FORCE_LOGOUT, $inUserId);
+        cLog::getInstance()->logEvent(cLog::AUTH_LOGIN_FORCE_LOGOUT, $inUserId);
     }
 
     /**
@@ -212,26 +212,6 @@ class cAuth
     function saltPassword($sPassword, $sSalt)
     {
         return hash('sha1', $sPassword . $sSalt);
-    }
-
-    /**
-     * Writes a specific log type to db
-     *
-     * @author micha
-     * @date 2014-12-14
-     *
-     * @param $sType
-     * @param null $iUserId
-     */
-    function logAuthAction($sType, $iUserId = NULL)
-    {
-        $oSql = new cMySql();
-
-        if ($iUserId == NULL) {
-            $oSql->insertRow('auth_log', ['timestamp' => date('Y-m-d H:i:s'), 'remote_addr' => $_SERVER['REMOTE_ADDR'], 'session_id' => session_id(), 'type' => $sType]);
-        } else {
-            $oSql->insertRow('auth_log', ['user_id' => $iUserId, 'timestamp' => date('Y-m-d H:i:s'), 'remote_addr' => $_SERVER['REMOTE_ADDR'], 'session_id' => session_id(), 'type' => $sType]);
-        }
     }
 
     /**
@@ -312,7 +292,7 @@ class cAuth
         if ($aUser['user'] == NULL) return false;
 
         if ($oSql->updateRows('login_credentials', ['salted_pw_hash' => $sSaltedPw, 'salt' => $sSalt, 'is_banned' => 0], ['id' => $iUserId])) {
-            self::logAuthAction(self::LOGIN_CHANGE_PASSWORD, $iUserId);
+            cLog::getInstance()->logEvent(cLog::AUTH_LOGIN_CHANGE_PASSWORD, $iUserId);
             return true;
         }
         return false;
@@ -326,7 +306,7 @@ class cAuth
         if ($aUser['user'] == NULL) return false;
 
         if ($oSql->updateRows('login_credentials', ['user' => $sNewUsername], ['id' => $iUserId])) {
-            self::logAuthAction(self::LOGIN_CHANGE_USERNAME, $iUserId);
+            cLog::getInstance()->logEvent(cLog::AUTH_LOGIN_CHANGE_USERNAME, $iUserId);
             return true;
         }
         return false;

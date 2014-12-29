@@ -16,3 +16,4 @@ $aClasses[] = 'class/error.class.php';
 $aClasses[] = 'class/mysql.class.php';
 $aClasses[] = 'class/auth.class.php';
 $aClasses[] = 'class/redirect.class.php';
+$aClasses[] = 'class/log.class.php';
