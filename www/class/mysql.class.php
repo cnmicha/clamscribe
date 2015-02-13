@@ -504,7 +504,7 @@ class cMySql
     public function getColumnComments($table)
     {
         $this->resetError();
-        $records = mysqli_query($this->mysql_link, "SHOW FULL COLUMNS FROM " . $table);
+        $records = mysqli_query($this->mysql_link, $this->SQLFix("SHOW FULL COLUMNS FROM " . $table));
         if (!$records) {
             $this->setError();
             return false;
@@ -539,7 +539,7 @@ class cMySql
             $result = mysqli_field_count($this->mysql_link);
             if (!$result) $this->setError();
         } else {
-            $records = mysqli_query($this->mysql_link, "SELECT * FROM " . $table . " LIMIT 1");
+            $records = mysqli_query($this->mysql_link, $this->SQLFix("SELECT * FROM " . $table . " LIMIT 1"));
             if (!$records) {
                 $this->setError();
                 $result = false;
@@ -581,7 +581,7 @@ class cMySql
             }
         } else {
             if (is_numeric($column)) $column = $this->getColumnName($column, $table);
-            $result = mysqli_query($this->mysql_link, "SELECT " . $column . " FROM " . $table . " LIMIT 1");
+            $result = mysqli_query($this->mysql_link, $this->SQLFix("SELECT " . $column . " FROM " . $table . " LIMIT 1"));
             if (mysqli_field_count($this->mysql_link) > 0) {
                 $field = mysqli_fetch_field_direct($result, 0);
                 return $field->type;
@@ -654,7 +654,7 @@ class cMySql
                 }
             }
         } else {
-            $records = mysqli_query($this->mysql_link, "SELECT " . $column . " FROM " . $table . " LIMIT 1");
+            $records = mysqli_query($this->mysql_link, $this->SQLFix("SELECT " . $column . " FROM " . $table . " LIMIT 1"));
             if (!$records) {
                 $this->setError();
                 return false;
@@ -695,7 +695,7 @@ class cMySql
                 $result = false;
             }
         } else {
-            $records = mysqli_query($this->mysql_link, "SELECT * FROM " . $table . " LIMIT 1");
+            $records = mysqli_query($this->mysql_link, $this->SQLFix("SELECT * FROM " . $table . " LIMIT 1"));
             if (!$records) {
                 $this->setError();
                 $result = false;
@@ -738,7 +738,7 @@ class cMySql
                 }
             }
         } else {
-            $result = mysqli_query($this->mysql_link, "SHOW COLUMNS FROM " . $table);
+            $result = mysqli_query($this->mysql_link, $this->SQLFix("SHOW COLUMNS FROM " . $table));
             if (!$result) {
                 $this->setError();
                 $columns = false;
@@ -1157,7 +1157,7 @@ class cMySql
     {
         $this->resetError();
         $this->last_sql = $sql;
-        $this->last_result = @mysqli_query($this->mysql_link, $sql);
+        $this->last_result = @mysqli_query($this->mysql_link, $this->SQLFix($sql));
         if (!$this->last_result) {
             $this->active_row = -1;
             $this->setError();
@@ -1513,7 +1513,7 @@ class cMySql
             $return_value = false;
         } else {
             if ((strlen($charset) > 0)) {
-                if (!(mysqli_query($this->mysql_link, "SET CHARACTER SET '{$charset}'"))) {
+                if (!(mysqli_query($this->mysql_link, $this->SQLFix("SET CHARACTER SET '{$charset}'")))) {
                     $this->setError();
                     $return_value = false;
                 }
