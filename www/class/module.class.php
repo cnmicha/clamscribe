@@ -31,7 +31,7 @@ class cModule
 
             if (!isset($aPages[$sPageName])) { //does page exist in config?
                 cError::getInstance()->throwError(cError::ERR_TYPE_TEMPLATE, 'Error code 3');
-                exit;
+                die();
             }
 
 
@@ -56,7 +56,7 @@ class cModule
                 if ($aModule['needsLogin'] == true) {
                     if (!cAuth::getInstance()->isLoginValid()) {
                         cRedirect::getInstance()->goToPage('auth');
-                        exit;
+                        die();
                     }
                 }
 
