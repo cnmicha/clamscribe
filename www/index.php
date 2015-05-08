@@ -6,12 +6,9 @@
  * Time: 02:28
  */
 
-//include classes
-
-//include classes
-require_once('include/class/classes.inc.php');
-foreach ($aClasses as $aClassFile) {
-    require_once($aClassFile);
+//class autoloader
+foreach (glob("class/*.class.php") as $sFilename) {
+    require_once $sFilename;
 }
 
 
