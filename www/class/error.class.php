@@ -29,7 +29,7 @@ class cError
     {
         switch ($iErrType) {
             case self::ERR_TYPE_OTHER:
-                echo('other error');
+                echo('other error<br>' . $sErrMsg);
 
                 if (LOG_PAGE_ERRORS_TO_DB) cLog::getInstance()->logEvent(cLog::ERR_TYPE_OTHER, cAuth::getInstance()->getUserId());
                 cDisplay::getInstance()->setBLocked(true);
@@ -37,7 +37,7 @@ class cError
                 break;
 
             case self::ERR_TYPE_DATABASE:
-                echo('db error');
+                echo('db error<br>' . $sErrMsg);
 
                 if (LOG_PAGE_ERRORS_TO_DB) cLog::getInstance()->logEvent(cLog::ERR_TYPE_DATABASE, cAuth::getInstance()->getUserId());
                 cDisplay::getInstance()->setBLocked(true);
@@ -45,7 +45,7 @@ class cError
                 break;
 
             case self::ERR_TYPE_TEMPLATE:
-                echo('tpl error');
+                echo('tpl error<br>' . $sErrMsg);
 
                 if (LOG_PAGE_ERRORS_TO_DB) cLog::getInstance()->logEvent(cLog::ERR_TYPE_TEMPLATE, cAuth::getInstance()->getUserId());
                 cDisplay::getInstance()->setBLocked(true);
@@ -53,7 +53,7 @@ class cError
                 break;
 
             case self::ERR_TYPE_MISSING_PRIVILEGIES:
-                echo('permission error');
+                echo('permission error<br>' . $sErrMsg);
 
                 if (LOG_PAGE_ERRORS_TO_DB) cLog::getInstance()->logEvent(cLog::ERR_TYPE_MISSING_PRIVILEGIES, cAuth::getInstance()->getUserId());
                 cDisplay::getInstance()->setBLocked(true);
