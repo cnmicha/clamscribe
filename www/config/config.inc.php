@@ -14,3 +14,5 @@ const DB_DATABASE_NAME = 'clamdb';
 const DB_DATABASE_TYPE = 'mysql'; //mariadb, mysql, pgsql, sybase, oracle, mssql and sqlite are possible
 const DB_DATABASE_USER = 'root';
 const DB_DATABASE_PASS = '';
+
+const LOG_PAGE_ERRORS_TO_DB = true;
