@@ -10,6 +10,14 @@ class cDisplay
 {
     private $bLocked = false;
 
+    /**
+     * Singleton pattern.
+     *
+     * @author cnmicha
+     * @date 2014-12-14
+     *
+     * @return cDisplay
+     */
     public static function getInstance()
     {
         static $inst = null;
@@ -20,6 +28,11 @@ class cDisplay
     }
 
     /**
+     * Returns template locked state
+     *
+     * @author cnmicha
+     * @date 2014-12-14
+     *
      * @return boolean
      */
     public function isBLocked()
@@ -28,6 +41,11 @@ class cDisplay
     }
 
     /**
+     * Sets template locked state
+     *
+     * @author cnmicha
+     * @date 2014-12-14
+     *
      * @param boolean $bLocked
      */
     public function setBLocked($bLocked)

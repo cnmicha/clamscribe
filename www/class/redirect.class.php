@@ -9,6 +9,14 @@
 class cRedirect
 {
 
+    /**
+     * Singleton pattern
+     *
+     * @author cnmicha
+     * @date 2014-12-14
+     *
+     * @return cRedirect
+     */
     public static function getInstance()
     {
         static $inst = null;
@@ -18,12 +26,30 @@ class cRedirect
         return $inst;
     }
 
+    /**
+     * Returns URL to index.php.
+     *
+     * @author cnmicha
+     * @date 2014-12-14
+     *
+     * @return string
+     */
     function getSmartyUrl()
     {
         $sUrl = (isset($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . ROOT_URL_FROM_DOCROOT . '/index.php';
         return $sUrl;
     }
 
+    /**
+     * Redirects browser to module.
+     *
+     * @author cnmicha
+     * @date 2014-12-14
+     *
+     * @param string $sModuleName
+     * @param null $sPageName
+     * @param array $aQueryStringVars
+     */
     function goToPage($sModuleName = 'dashboard', $sPageName = NULL, $aQueryStringVars = array())
     {
         $sQueryStrVars = '';
@@ -37,6 +63,17 @@ class cRedirect
         header('Location: ' . self::getSmartyUrl() . '?module=' . $sModuleName . $sPageName . $sQueryStrVars);
     }
 
+    /**
+     * Returns link to module.
+     *
+     * @author cnmicha
+     * @date 2014-12-14
+     *
+     * @param string $sModuleName
+     * @param null $sPageName
+     * @param array $aQueryStringVars
+     * @return string
+     */
     function getPageLink($sModuleName = 'dashboard', $sPageName = NULL, $aQueryStringVars = array())
     {
         $sQueryStrVars = '';

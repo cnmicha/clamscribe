@@ -26,7 +26,7 @@ class cAuth
     /**
      * Singleton pattern
      *
-     * @author micha
+     * @author cnmicha
      * @date 2014-12-14
      *
      * @return cAuth
@@ -43,7 +43,7 @@ class cAuth
     /**
      * Check if provided login data is valid and if it is, log user in
      *
-     * @author micha
+     * @author cnmicha
      * @date 2014-12-14
      *
      * @param $sUsername
@@ -87,6 +87,16 @@ class cAuth
         return false;
     }
 
+    /**
+     * Checks for correct password
+     *
+     * @author cnmicha
+     * @date 2014-12-14
+     *
+     * @param $sUsername
+     * @param $sPassword
+     * @return bool
+     */
     function isCorrectPassword($sUsername, $sPassword)
     {
         //check for valid credentials
@@ -108,7 +118,7 @@ class cAuth
     /***
      * Checks if user is still logged in, if not, do logout
      *
-     * @author micha
+     * @author cnmicha
      * @date 2014-12-14
      *
      * @return bool
@@ -152,9 +162,9 @@ class cAuth
     }
 
     /**
-     * Destroys session data to log the user out.
+     * Destroys session data to log the user out. Call when user logs out himself.
      *
-     * @author micha
+     * @author cnmicha
      * @date 2014-12-14
      *
      */
@@ -170,9 +180,9 @@ class cAuth
     }
 
     /**
-     * Destroys session data to log the user out.
+     * Destroys session data to log the user out. Call when user is forced to logout
      *
-     * @author micha
+     * @author cnmicha
      * @date 2014-12-14
      */
     function forceLogout()
@@ -189,7 +199,7 @@ class cAuth
     /**
      * do IP-check
      *
-     * @author micha
+     * @author cnmicha
      * @date 2014-12-14
      *
      * @return bool
@@ -200,9 +210,9 @@ class cAuth
     }
 
     /**
-     * salts a string
+     * salts a password string
      *
-     * @author micha
+     * @author cnmicha
      * @date 2014-12-14
      *
      * @param $sPassword
@@ -217,7 +227,7 @@ class cAuth
     /**
      * checks if user is logged in at the moment but does not log out
      *
-     * @author micha
+     * @author cnmicha
      * @date 2014-12-14
      *
      * @return bool
@@ -249,9 +259,9 @@ class cAuth
     }
 
     /**
-     * Returns username fitting to provided user id
+     * Returns username by user id
      *
-     * @author micha
+     * @author cnmicha
      * @date 2014-12-14
      *
      * @param $iUserId
@@ -265,6 +275,15 @@ class cAuth
         return $aUser['user'];
     }
 
+    /**
+     * Returns user id by username
+     *
+     * @author cnmicha
+     * @date 2014-12-14
+     *
+     * @param $sUsername
+     * @return mixed
+     */
     function getUserIdByUsername($sUsername)
     {
         $oSql = new cMySql();
@@ -273,6 +292,15 @@ class cAuth
         return $aUser['id'];
     }
 
+    /**
+     * Checks whether username exists and is able to log in
+     *
+     * @author cnmicha
+     * @date 2014-12-14
+     *
+     * @param $sUsername
+     * @return bool
+     */
     function isValidUsername($sUsername)
     {
         $oSql = new cMySql();
@@ -282,6 +310,16 @@ class cAuth
         else return false;
     }
 
+    /**
+     * Sets new password for given user id.
+     *
+     * @author cnmicha
+     * @date 2014-12-14
+     *
+     * @param $iUserId
+     * @param $sCleartextPassword
+     * @return bool
+     */
     function setNewPassword($iUserId, $sCleartextPassword)
     {
         $sSalt = self::generateSalt();
@@ -298,6 +336,16 @@ class cAuth
         return false;
     }
 
+    /**
+     * Sets new username for given user id
+     *
+     * @author cnmciha
+     * @date 2014-12-14
+     *
+     * @param $iUserId
+     * @param $sNewUsername
+     * @return bool
+     */
     function setNewUsername($iUserId, $sNewUsername)
     {
         $oSql = new cMySql();
@@ -315,7 +363,7 @@ class cAuth
     /**
      * Returns user-id if user is logged in, otherwise NULL
      *
-     * @author micha
+     * @author cnmicha
      * @date 2014-12-14
      *
      * @return mixed
@@ -326,6 +374,14 @@ class cAuth
         return NULL;
     }
 
+    /**
+     * Generates random salt.
+     *
+     * @author cnmicha
+     * @date 2014-12-14
+     *
+     * @return string
+     */
     function generateSalt()
     {
         $salt = sprintf('$2a$%02d$', $this->rounds);
@@ -337,6 +393,15 @@ class cAuth
         return $salt;
     }
 
+    /**
+     * Generates random bytes. Used by generateSalt()
+     *
+     * @author cnmicha
+     * @date 2014-12-14
+     *
+     * @param $count
+     * @return string
+     */
     private function getRandomBytes($count)
     {
         $bytes = '';
@@ -380,6 +445,15 @@ class cAuth
         return $bytes;
     }
 
+    /**
+     * Encodes given bytes. Used by generateSalt().
+     *
+     * @author cnmicha
+     * @date 2014-12-14
+     *
+     * @param $input
+     * @return string
+     */
     private function encodeBytes($input)
     {
         // The following is code from the PHP Password Hashing Framework
