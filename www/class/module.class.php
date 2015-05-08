@@ -9,6 +9,14 @@
 class cModule
 {
 
+    /**
+     * Singleton pattern
+     *
+     * @author cnmicha
+     * @date 2014-12-14
+     *
+     * @return cModule
+     */
     public static function getInstance()
     {
         static $inst = null;
@@ -18,6 +26,16 @@ class cModule
         return $inst;
     }
 
+    /**
+     * Displays a module.
+     *
+     * @author cnmicha
+     * @date 2014-12-14
+     *
+     * @param $oSmarty
+     * @param $sModuleName
+     * @param null $sPageName
+     */
     function runModule($oSmarty, $sModuleName, $sPageName = NULL)
     {
         if (file_exists('module/' . $sModuleName . '/config.php')) {
@@ -81,6 +99,15 @@ class cModule
         }
     }
 
+    /**
+     * Returns formatted breadcrumb html/css string
+     *
+     * @author cnmicha
+     * @date 2014-12-14
+     *
+     * @param $aBreadcrumb
+     * @return string
+     */
     function getBreadcrumbHtmlStr($aBreadcrumb)
     {
         $aBreadcrumbHtml = array();

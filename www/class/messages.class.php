@@ -18,6 +18,14 @@ class cMessages
     const MSG_TYPE_WARNING = 5;
 
 
+    /**
+     * Singleton pattern
+     *
+     * @author cnmicha
+     * @date 2014-12-14
+     *
+     * @return cMessages
+     */
     public static function getInstance()
     {
         static $inst = null;
@@ -27,6 +35,15 @@ class cMessages
         return $inst;
     }
 
+    /**
+     * Throws an error.
+     *
+     * @author cnmicha
+     * @date 2014-12-14
+     *
+     * @param $iErrType
+     * @param string $sErrMsg
+     */
     public function throwError($iErrType, $sErrMsg = '')
     {
         switch ($iErrType) {
@@ -66,6 +83,15 @@ class cMessages
         }
     }
 
+    /**
+     * Shows a message.
+     *
+     * @author cnmicha
+     * @date 2015-05-08
+     *
+     * @param $iMsgType
+     * @param $sMsgText
+     */
     function showMessage($iMsgType, $sMsgText) {
         switch ($iMsgType) {
             case self::MSG_TYPE_INFORMATION:
