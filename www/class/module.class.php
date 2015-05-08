@@ -30,7 +30,7 @@ class cModule
             if ($sPageName == NULL) $sPageName = $aModule['main_page'];
 
             if (!isset($aPages[$sPageName])) { //does page exist in config?
-                cError::getInstance()->throwError(cError::ERR_TYPE_TEMPLATE, 'Error code 3');
+                cMessages::getInstance()->throwError(cMessages::ERR_TYPE_TEMPLATE, 'Error code 3');
                 die();
             }
 
@@ -71,12 +71,12 @@ class cModule
                 }
 
             } else {
-                cError::getInstance()->throwError(cError::ERR_TYPE_TEMPLATE);
+                cMessages::getInstance()->throwError(cMessages::ERR_TYPE_TEMPLATE);
                 echo('<br>Error code 2');
             }
 
         } else {
-            cError::getInstance()->throwError(cError::ERR_TYPE_TEMPLATE);
+            cMessages::getInstance()->throwError(cMessages::ERR_TYPE_TEMPLATE);
             echo('<br>Error code 1');
         }
     }

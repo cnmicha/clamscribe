@@ -8,12 +8,14 @@
  */
 require_once('display.class.php');
 
-class cError
+class cMessages
 {
     const ERR_TYPE_OTHER = 0;
     const ERR_TYPE_DATABASE = 1;
     const ERR_TYPE_TEMPLATE = 2;
     const ERR_TYPE_MISSING_PRIVILEGIES = 3;
+    const MSG_TYPE_INFORMATION = 4;
+    const MSG_TYPE_WARNING = 5;
 
 
     public static function getInstance()
@@ -61,6 +63,22 @@ class cError
                 break;
 
 
+        }
+    }
+
+    function showMessage($iMsgType, $sMsgText) {
+        switch ($iMsgType) {
+            case self::MSG_TYPE_INFORMATION:
+                echo('information: ' . $sMsgText);
+                break;
+
+            case self::MSG_TYPE_WARNING:
+                echo('warning: ' . $sMsgText);
+                break;
+
+            default:
+                self::throwError(self::ERR_TYPE_OTHER, 'Wrong MSG_TYPE id');
+                break;
         }
     }
 
