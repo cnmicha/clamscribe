@@ -272,33 +272,31 @@ class cMySql
     /**
      * [STATIC] Builds a SQL UPDATE statement
      *
-     * @param string $tableName The name of the table
-     * @param array $aWhere An associative array containing the column
+     * @param string $sTableName The name of the table
+     * @param array $aValues An associative array containing the column
      *                            names as keys and values as data. The values
      *                            must be SQL ready (i.e. quotes around
      *                            strings, formatted dates, ect)
-     * @param array $whereArray (Optional) An associative array containing the
+     * @param array $aWhere (Optional) An associative array containing the
      *                           column names as keys and values as data. The
      *                           values must be SQL ready (i.e. quotes around
      *                           strings, formatted dates, ect). If not specified
      *                           then all values in the table are updated.
      * @return string Returns a SQL UPDATE statement
      */
-    static public function buildSQLUpdate($tableName, $aWhere, $whereArray = null)
+    static public function buildSQLUpdate($sTableName, $aValues, $aWhere = null)
     {
         $sql = "";
-        foreach ($aWhere as $sKey => $mValue) {
-            if(is_string($mValue)) $mValue = self::quoteStr($mValue);
-
+        foreach ($aValues as $key => $value) {
             if (strlen($sql) == 0) {
-                $sql = "`" . $sKey . "` = " . $mValue;
+                $sql = "`" . $key . "` = " . $value;
             } else {
-                $sql .= ", `" . $sKey . "` = " . $mValue;
+                $sql .= ", `" . $key . "` = " . $value;
             }
         }
-        $sql = "UPDATE `" . $tableName . "` SET " . $sql;
-        if (is_array($whereArray)) {
-            $sql .= self::buildSQLWhereClause($whereArray);
+        $sql = "UPDATE `" . $sTableName . "` SET " . $sql;
+        if (is_array($aWhere)) {
+            $sql .= self::buildSQLWhereClause($aWhere);
         }
         return $sql;
     }
@@ -504,7 +502,7 @@ class cMySql
     public function getColumnComments($table)
     {
         $this->resetError();
-        $records = mysqli_query($this->mysql_link, $this->SQLFix("SHOW FULL COLUMNS FROM " . $table));
+        $records = mysqli_query($this->mysql_link, "SHOW FULL COLUMNS FROM " . $table);
         if (!$records) {
             $this->setError();
             return false;
@@ -539,7 +537,7 @@ class cMySql
             $result = mysqli_field_count($this->mysql_link);
             if (!$result) $this->setError();
         } else {
-            $records = mysqli_query($this->mysql_link, $this->SQLFix("SELECT * FROM " . $table . " LIMIT 1"));
+            $records = mysqli_query($this->mysql_link, "SELECT * FROM " . $table . " LIMIT 1");
             if (!$records) {
                 $this->setError();
                 $result = false;
@@ -581,7 +579,7 @@ class cMySql
             }
         } else {
             if (is_numeric($column)) $column = $this->getColumnName($column, $table);
-            $result = mysqli_query($this->mysql_link, $this->SQLFix("SELECT " . $column . " FROM " . $table . " LIMIT 1"));
+            $result = mysqli_query($this->mysql_link, "SELECT " . $column . " FROM " . $table . " LIMIT 1");
             if (mysqli_field_count($this->mysql_link) > 0) {
                 $field = mysqli_fetch_field_direct($result, 0);
                 return $field->type;
@@ -654,7 +652,7 @@ class cMySql
                 }
             }
         } else {
-            $records = mysqli_query($this->mysql_link, $this->SQLFix("SELECT " . $column . " FROM " . $table . " LIMIT 1"));
+            $records = mysqli_query($this->mysql_link, "SELECT " . $column . " FROM " . $table . " LIMIT 1");
             if (!$records) {
                 $this->setError();
                 return false;
@@ -695,7 +693,7 @@ class cMySql
                 $result = false;
             }
         } else {
-            $records = mysqli_query($this->mysql_link, $this->SQLFix("SELECT * FROM " . $table . " LIMIT 1"));
+            $records = mysqli_query($this->mysql_link, "SELECT * FROM " . $table . " LIMIT 1");
             if (!$records) {
                 $this->setError();
                 $result = false;
@@ -738,7 +736,7 @@ class cMySql
                 }
             }
         } else {
-            $result = mysqli_query($this->mysql_link, $this->SQLFix("SHOW COLUMNS FROM " . $table));
+            $result = mysqli_query($this->mysql_link, "SHOW COLUMNS FROM " . $table);
             if (!$result) {
                 $this->setError();
                 $columns = false;
@@ -1157,7 +1155,7 @@ class cMySql
     {
         $this->resetError();
         $this->last_sql = $sql;
-        $this->last_result = @mysqli_query($this->mysql_link, $this->SQLFix($sql));
+        $this->last_result = @mysqli_query($this->mysql_link, $sql);
         if (!$this->last_result) {
             $this->active_row = -1;
             $this->setError();
@@ -1513,7 +1511,7 @@ class cMySql
             $return_value = false;
         } else {
             if ((strlen($charset) > 0)) {
-                if (!(mysqli_query($this->mysql_link, $this->SQLFix("SET CHARACTER SET '{$charset}'")))) {
+                if (!(mysqli_query($this->mysql_link, "SET CHARACTER SET '{$charset}'"))) {
                     $this->setError();
                     $return_value = false;
                 }
@@ -1597,7 +1595,7 @@ class cMySql
                 $ibRowsCount = $this->rowCount();
                 if ($ibRowsCount != false) {
                     if ($ibRowsCount > 0) {
-                        for ($i = 0; $i < $ibRowsCount; $i++) {
+                        for ($i = 0; $i <= $ibRowsCount; $i++) {
                             $aReturn[] = $this->rowArray($i);
                         }
                     }
