@@ -92,9 +92,6 @@ CREATE TABLE IF NOT EXISTS `login_credentials` (
 -- Daten für Tabelle `login_credentials`
 --
 
-INSERT INTO `login_credentials` (`id`, `user`, `salted_pw_hash`, `salt`, `is_banned`) VALUES
-(1, 'michael', 'd8836fafc19572a4893cd0cbc66afc665f31e761', '$2a$00$0jaMKZCuI1YgO0a0heE5du', 0);
-
 --
 -- Indexes for dumped tables
 --
