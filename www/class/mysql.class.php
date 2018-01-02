@@ -219,8 +219,8 @@ class cMySql
      */
     static public function buildSQLInsert($tableName, $valuesArray)
     {
-        foreach($valuesArray as $key => $value) {
-            if(is_string($value)) $valuesArray[$key] = self::quoteStr($value);
+        foreach ($valuesArray as $key => $value) {
+            if (is_string($value)) $valuesArray[$key] = self::quoteStr($value);
         }
 
         $columns = self::buildSQLColumns(array_keys($valuesArray));
@@ -289,9 +289,17 @@ class cMySql
         $sql = "";
         foreach ($aValues as $key => $value) {
             if (strlen($sql) == 0) {
-                $sql = "`" . $key . "` = " . $value;
+                if (is_string($value)) {
+                    $sql = "`" . $key . "` = '" . $value . "'";
+                } else {
+                    $sql = "`" . $key . "` = " . $value;
+                }
             } else {
-                $sql .= ", `" . $key . "` = " . $value;
+                if (is_string($value)) {
+                    $sql .= ", `" . $key . "` = '" . $value . "'";
+                } else {
+                    $sql .= ", `" . $key . "` = " . $value;
+                }
             }
         }
         $sql = "UPDATE `" . $sTableName . "` SET " . $sql;
@@ -316,7 +324,7 @@ class cMySql
     {
         $sWhere = "";
         foreach ($aWhere as $sKey => $mValue) {
-            if(is_string($mValue)) $mValue = self::quoteStr($mValue);
+            if (is_string($mValue)) $mValue = self::quoteStr($mValue);
 
             if (strlen($sWhere) == 0) {
                 if (is_null($mValue)) {
@@ -339,7 +347,8 @@ class cMySql
         return $sWhere;
     }
 
-    function quoteStr($sStr) {
+    function quoteStr($sStr)
+    {
         return "'" . $sStr . "'";
     }
 
